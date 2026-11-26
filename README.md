@@ -60,3 +60,10 @@ show the car, Wheels shows the wheel, Interior shows the cockpit).
 `<model-viewer>` 4.3.1 (CDN) on `/segar-cobra/#view-3d` and as the "3D" view in the configurator, with
 drag/zoom, auto-rotate and phone AR. The unseen side and rear are AI guesses; replace with a proper
 model (artist or scan) when available. It shows the original Jet Black only.
+
+### 3D colours
+`public/3d/tex/<paint>-<stripe>.jpg` (30 textures) are made by `python3 tools/recolor3d.py` from the
+model's own texture: each texel is mapped to its 3D position, wheels/cockpit/grille are excluded, and only
+body paint and stripes are recoloured using the paint/stripe hex values in `content/site.json`.
+Re-run it after changing colours or replacing the model (`--debug` writes a colour-coded check model).
+The configurator's 3D view and the colour dots on the car page swap these textures live.

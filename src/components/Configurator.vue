@@ -60,6 +60,22 @@ const photoAlt = computed(() =>
   photoKind.value === 'wheel' ? `${wheel.value.name} close-up`
   : photoKind.value === 'interior' ? `${interior.value.name} cockpit`
   : `${props.car} in ${paint.value.name} with ${stripe.value.name.toLowerCase()}`);
+// 3D view: swap the model's colour texture (/3d/tex/<paint>-<stripe>.jpg, made by tools/recolor3d.py).
+const mv = ref<any>(null);
+const texCache = new Map<string, Promise<any>>();
+async function applyTexture() {
+  const el = mv.value;
+  if (!el?.model) return;
+  const url = `/3d/tex/${cfg.paint}-${cfg.stripe}.jpg`;
+  if (!texCache.has(url)) texCache.set(url, el.createTexture(url));
+  try {
+    const tex = await texCache.get(url);
+    if (mv.value === el) el.model.materials[0].pbrMetallicRoughness.baseColorTexture.setTexture(tex);
+  } catch { texCache.delete(url); }
+}
+watch(() => [cfg.paint, cfg.stripe], applyTexture);
+watch(view, (v) => { if (v === '3d') texCache.clear(); });
+
 // Images stay in the DOM once shown, so switching back crossfades instantly.
 const shown = ref<string[]>([]);
 watch(currentPhoto, (src) => { if (src && !shown.value.includes(src)) shown.value.push(src); }, { immediate: true });
@@ -106,10 +122,10 @@ const steps = ['exterior', 'wheels', 'interior', 'options', 'summary'] as const;
           :class="{ on: src === currentPhoto }" :aria-hidden="src !== currentPhoto" decoding="async" />
       </div>
       <div v-else-if="view === '3d'" class="model">
-        <model-viewer src="/3d/segar-cobra.glb" alt="3D model of the Segar Cobra" camera-controls auto-rotate
+        <model-viewer ref="mv" src="/3d/segar-cobra.glb" :alt="`3D model of the ${props.car} in ${paint.name}`" camera-controls auto-rotate
           rotation-per-second="20deg" shadow-intensity="1" exposure="1.1" environment-image="neutral"
-          camera-orbit="240deg 75deg 85%" ar ar-modes="webxr scene-viewer quick-look" />
-        <p class="caption small-note">3D preview shows the original Jet Black car (AI-generated from a photo). Your colour choices appear in the Photo view.</p>
+          camera-orbit="240deg 75deg 85%" ar ar-modes="webxr scene-viewer quick-look" @load="applyTexture" />
+        <p class="caption small-note">AI-generated 3D preview. Body colour and stripes follow your choices; wheels and interior are shown in the Photo view.</p>
       </div>
       <div v-else class="art" v-html="art" />
       <p class="caption">{{ paint.name }} · {{ stripe.name }} · {{ wheel.name }}</p>

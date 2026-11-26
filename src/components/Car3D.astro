@@ -1,13 +1,18 @@
 ---
 // Interactive 3D model of the Segar Cobra (AI-generated from a photo with TRELLIS).
 // Drag to rotate, scroll/pinch to zoom, "View in your space" AR on supported phones.
+// Colour dots swap the model texture (/3d/tex/<paint>-silver.jpg, made by tools/recolor3d.py).
+import site from '../../content/site.json';
+
 interface Props { height?: string }
 const { height = 'min(70vh, 620px)' } = Astro.props;
+const paints = site.configurator.paints;
 ---
 <script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer@4.3.1/dist/model-viewer.min.js"></script>
 
 <div class="car3d" style={`--h:${height}`}>
   <model-viewer
+    id="car3d-viewer"
     src="/3d/segar-cobra.glb"
     alt="3D model of the Segar Cobra"
     camera-controls
@@ -29,8 +34,39 @@ const { height = 'min(70vh, 620px)' } = Astro.props;
     <button slot="ar-button" class="ar-btn" type="button">View in your space</button>
     <div slot="progress-bar" class="progress"></div>
   </model-viewer>
+  <div class="colours" role="group" aria-label="Body colour">
+    {paints.map((p, i) => (
+      <button type="button" class="dot" data-paint={p.id} style={`background:${p.hex}`}
+        aria-pressed={i === 0 ? 'true' : 'false'} aria-label={p.name} title={p.name}></button>
+    ))}
+    <span class="name" aria-live="polite">{paints[0].name}</span>
+  </div>
   <p class="hint">Drag to rotate · Scroll or pinch to zoom · AI-generated 3D preview from a photo of the car</p>
 </div>
+
+<script>
+  const viewer = document.getElementById('car3d-viewer') as any;
+  const label = document.querySelector('.car3d .name') as HTMLElement | null;
+  const cache = new Map<string, Promise<any>>();
+  let current = 'black';
+  async function apply() {
+    if (!viewer?.model) return;
+    const url = `/3d/tex/${current}-silver.jpg`;
+    if (!cache.has(url)) cache.set(url, viewer.createTexture(url));
+    try {
+      viewer.model.materials[0].pbrMetallicRoughness.baseColorTexture.setTexture(await cache.get(url));
+    } catch { cache.delete(url); }
+  }
+  viewer?.addEventListener('load', apply);
+  document.querySelectorAll<HTMLButtonElement>('.car3d .dot').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      current = btn.dataset.paint!;
+      document.querySelectorAll('.car3d .dot').forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+      if (label) label.textContent = btn.getAttribute('aria-label');
+      apply();
+    });
+  });
+</script>
 
 <style>
   .car3d { position: relative; border-radius: var(--radius-l); overflow: hidden; background: radial-gradient(100% 90% at 50% 30%, #ffffff, #e9e9ec); }
@@ -41,5 +77,9 @@ const { height = 'min(70vh, 620px)' } = Astro.props;
     font: inherit; font-size: 0.875rem; background: var(--contrast); color: var(--on-contrast);
   }
   .progress { display: none; }
-  .hint { margin: 0; padding: 10px 16px 14px; text-align: center; font-size: 0.8125rem; color: var(--text-muted); }
+  .colours { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 10px; padding: 4px 16px 0; }
+  .dot { width: 34px; height: 34px; border-radius: 50%; border: 2px solid rgba(0, 0, 0, 0.15); cursor: pointer; padding: 0; }
+  .dot[aria-pressed='true'] { outline: 2px solid var(--text); outline-offset: 3px; }
+  .name { width: 100%; text-align: center; font-size: 0.875rem; color: var(--text-muted); }
+  .hint { margin: 0; padding: 6px 16px 14px; text-align: center; font-size: 0.8125rem; color: var(--text-muted); }
 </style>
