@@ -8,7 +8,7 @@ import { sideView, topView } from '../lib/roadsterArt';
 interface Choice { id: string; name: string; hex: string; original?: boolean; photo?: string }
 interface Option { id: string; name: string; default?: boolean }
 const props = defineProps<{
-  car: string; instagramDm: string; note: string; photoNote?: string;
+  car: string; instagramDm: string; note: string; photoNote?: string; photoBase?: string;
   paints: Choice[]; stripes: Choice[]; wheels: Choice[]; interiors: Choice[]; options: Option[];
 }>();
 
@@ -46,7 +46,28 @@ const look = computed(() => ({
   rollbar: cfg.opts.includes('rollbar'), sidepipes: cfg.opts.includes('sidepipes'),
 }));
 const art = computed(() => (view.value === 'side' ? sideView(look.value) : topView(look.value)));
-const photos = computed(() => props.paints.filter((p) => p.photo));
+// Photo view: one photo per body colour × stripe (/img/cfg/ext-<paint>-<stripe>.jpg),
+// plus a wheel close-up on the Wheels tab and the cockpit on the Interior tab.
+const photos = computed(() => (props.photoBase ? [1] : props.paints.filter((p) => p.photo)));
+const photoKind = computed(() => (step.value === 'wheels' ? 'wheel' : step.value === 'interior' ? 'interior' : 'ext'));
+const currentPhoto = computed(() => {
+  if (!props.photoBase) return paint.value.photo ?? '';
+  if (photoKind.value === 'wheel') return `${props.photoBase}/wheel-${cfg.wheel}.jpg`;
+  if (photoKind.value === 'interior') return `${props.photoBase}/interior-${cfg.interior}.jpg`;
+  return `${props.photoBase}/ext-${cfg.paint}-${cfg.stripe}.jpg`;
+});
+const photoAlt = computed(() =>
+  photoKind.value === 'wheel' ? `${wheel.value.name} close-up`
+  : photoKind.value === 'interior' ? `${interior.value.name} cockpit`
+  : `${props.car} in ${paint.value.name} with ${stripe.value.name.toLowerCase()}`);
+// Images stay in the DOM once shown, so switching back crossfades instantly.
+const shown = ref<string[]>([]);
+watch(currentPhoto, (src) => { if (src && !shown.value.includes(src)) shown.value.push(src); }, { immediate: true });
+onMounted(() => {
+  if (!props.photoBase) return;
+  // Warm the cache for the other stripe options of the current colour.
+  for (const s of props.stripes) new Image().src = `${props.photoBase}/ext-${cfg.paint}-${s.id}.jpg`;
+});
 
 const summaryText = computed(() => [
   `${props.car} configuration`,
@@ -79,9 +100,9 @@ const steps = ['exterior', 'wheels', 'interior', 'options', 'summary'] as const;
         <button type="button" :aria-pressed="view === 'side'" @click="view = 'side'">Side</button>
         <button type="button" :aria-pressed="view === 'top'" @click="view = 'top'">Top</button>
       </div>
-      <div v-if="view === 'photo' && paint.photo" class="photo">
-        <img v-for="p in photos" :key="p.id" :src="p.photo" :alt="`${props.car} in ${p.name}`"
-          :class="{ on: p.id === paint.id }" :aria-hidden="p.id !== paint.id" loading="eager" decoding="async" />
+      <div v-if="view === 'photo' && currentPhoto" class="photo" :class="photoKind">
+        <img v-for="src in shown" :key="src" :src="src" :alt="src === currentPhoto ? photoAlt : ''"
+          :class="{ on: src === currentPhoto }" :aria-hidden="src !== currentPhoto" decoding="async" />
       </div>
       <div v-else class="art" v-html="art" />
       <p class="caption">{{ paint.name }} · {{ stripe.name }} · {{ wheel.name }}</p>
@@ -177,6 +198,8 @@ const steps = ['exterior', 'wheels', 'interior', 'options', 'summary'] as const;
 .photo { position: relative; aspect-ratio: 4 / 3; width: 100%; margin: 0 auto; border-radius: var(--radius-m); overflow: hidden; background: #ddd; }
 .photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 88%; opacity: 0; transition: opacity 0.45s ease; }
 .photo img.on { opacity: 1; }
+.photo.wheel img { object-position: 50% 75%; }
+.photo.interior img { object-position: 50% 50%; }
 .small-note { font-size: 0.75rem; max-width: 60ch; margin: 6px auto 0; }
 .art :deep(svg path), .art :deep(svg rect), .art :deep(svg circle) { transition: fill 0.35s ease; }
 .caption { text-align: center; font-size: 0.875rem; color: var(--text-muted); margin: 8px 0 0; }

@@ -46,3 +46,10 @@ Replace them with real photos of painted cars when Segar has them.
 
 ## Publish
 Run `npm run build` and upload the contents of `dist/` to any web host (static files, no PHP or database needed).
+
+## Configurator photos (all combinations)
+`public/img/cfg/`: `ext-<paint>-<stripe>.jpg` (6 colours × 5 stripe options; same-colour stripes reuse
+the plain photo), `wheel-<silver|black|gold>.jpg` (silver is the real photo), `interior-<black|tan|red>.jpg`.
+All except `wheel-silver` are AI-edited (ChatGPT, 26 Nov 2026) from Segar's own photos; originals in
+`~/Downloads/segar-motorsports/ai-renders/`. The Photo view follows the active tab (Exterior/Options/Summary
+show the car, Wheels shows the wheel, Interior shows the cockpit).

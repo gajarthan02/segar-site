@@ -10,7 +10,7 @@ const c = site.configurator;
   <section class="section">
     <nav class="crumbs muted" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/segar-cobra/">{site.car}</a> / Configure</nav>
     <h1 class="heading">Configure your {site.car}</h1>
-    <Configurator client:load car={site.car} instagramDm={`https://ig.me/m/${handle}`} note={c.note} photoNote={c.photoNote}
+    <Configurator client:load car={site.car} instagramDm={`https://ig.me/m/${handle}`} note={c.note} photoNote={c.photoNote} photoBase="/img/cfg"
       paints={c.paints} stripes={c.stripes} wheels={c.wheels} interiors={c.interiors} options={c.options} />
   </section>
 </Base>
