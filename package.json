@@ -1,0 +1,17 @@
+{
+  "name": "segar-site",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22.23.4" },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "deploy": "./deploy.sh"
+  },
+  "dependencies": {
+    "@astrojs/vue": "7.1.2",
+    "astro": "7.4.8",
+    "vue": "3.5.45"
+  }
+}

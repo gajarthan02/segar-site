@@ -1,0 +1,63 @@
+---
+import Base from '../layouts/Base.astro';
+import site from '../../content/site.json';
+---
+<Base title="About us" description="Segar Motorsports and the story of the Segar Cobra, made in Sri Lanka.">
+  <section class="section hero">
+    <span class="eyebrow">About us</span>
+    <h1 class="display">Built to be driven. Made in Sri Lanka.</h1>
+    <p class="lead">{site.intro}</p>
+  </section>
+
+  <section class="section split">
+    <div>
+      <h2 class="heading">The story.</h2>
+      {site.story.map((p) => <p class="lead">{p}</p>)}
+    </div>
+    <img src="/img/galle-fort.jpg" alt="The Segar Cobra in Galle Fort" loading="lazy" />
+  </section>
+
+  <section class="section stats" aria-label="Key facts">
+    {site.stats.map((s) => <div><dd>{s.value}</dd><dt class="muted">{s.label}</dt></div>)}
+  </section>
+
+  <section class="section split" id="made-here">
+    <img src="/img/workshop.jpg" alt="The Segar Cobra in the workshop" loading="lazy" />
+    <div>
+      <span class="eyebrow">80% local value addition</span>
+      <h2 class="heading">Made here.</h2>
+      <p class="lead">The steel chassis, fibreglass body, roll bar, dashboard, centre console and brackets are made in Sri Lanka, using raw materials sourced within the country. Built in collaboration with RV Dynamics.</p>
+    </div>
+  </section>
+
+  <section class="section" id="milestones">
+    <h2 class="heading">Milestones.</h2>
+    <ol class="timeline">
+      {site.milestones.map((m) => (
+        <li><span class="date">{m.date}</span><div><h3>{m.title}</h3><p class="muted">{m.text}</p></div></li>
+      ))}
+    </ol>
+    <a class="photo-tile report" href="/gallery/#documents">
+      <img src="/img/nerdc-report-800.jpg" alt="" loading="lazy" />
+      <span class="label link-arrow">2023 technical evaluation report</span>
+    </a>
+  </section>
+</Base>
+
+<style>
+  .hero { padding-bottom: 0; display: grid; gap: 16px; }
+  .hero .display { max-width: 18ch; }
+  .split { display: grid; gap: 48px; align-items: center; }
+  @media (min-width: 900px) { .split { grid-template-columns: 1fr 1fr; } }
+  .split > img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius-l); }
+  .stats { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); padding-top: 0; }
+  .stats div { display: flex; flex-direction: column; gap: 6px; border-top: 1px solid var(--border); padding-top: 16px; }
+  .stats dd { margin: 0; font-size: clamp(2rem, 4vw, 3rem); }
+  .timeline { list-style: none; padding: 0; margin: 0 0 40px; border-top: 1px solid var(--border); }
+  .timeline li { display: grid; gap: 8px 32px; padding: 24px 0; border-bottom: 1px solid var(--border); }
+  @media (min-width: 860px) { .timeline li { grid-template-columns: 200px 1fr; } }
+  .date { font-weight: 600; }
+  .timeline h3 { margin: 0 0 6px; font-size: 1.25rem; font-weight: 500; }
+  .timeline p { margin: 0; line-height: 1.6; max-width: 70ch; }
+  .report { max-width: 420px; aspect-ratio: 3 / 4; }
+</style>

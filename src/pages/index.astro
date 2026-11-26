@@ -1,0 +1,82 @@
+---
+// Home page, laid out like a car-maker homepage: full-screen stage, highlight tiles,
+// the model range (one car), and a "Discover" grid.
+import Base from '../layouts/Base.astro';
+import site from '../../content/site.json';
+---
+<Base overlayHeader>
+  <!-- Stage -->
+  <section class="stage">
+    <picture>
+      <source media="(max-width: 700px)" srcset="/img/palms-bw-800.jpg" />
+      <img src="/img/hero-wide.jpg" alt="The Segar Cobra, front three-quarter view" fetchpriority="high" />
+    </picture>
+    <div class="shade" aria-hidden="true"></div>
+    <div class="copy">
+      <span class="eyebrow light">80% made in Sri Lanka</span>
+      <h1 class="display">{site.car}.</h1>
+      <a class="btn btn-glass" href="/segar-cobra/">Discover more</a>
+    </div>
+    <a class="scroll" href="#highlights" aria-label="Scroll down">↓</a>
+  </section>
+
+  <!-- Highlight tiles -->
+  <section class="section tiles" id="highlights">
+    <a class="photo-tile" href="/segar-cobra/"><img src="/img/galle-fort-800.jpg" alt="" loading="lazy" /><span class="label link-arrow">{site.car}.</span></a>
+    <a class="photo-tile" href="/about/#made-here"><img src="/img/workshop-800.jpg" alt="" loading="lazy" /><span class="label link-arrow">Made in Sri Lanka.</span></a>
+    <a class="photo-tile" href="/about/#milestones"><img src="/img/beach-cafe-800.jpg" alt="" loading="lazy" /><span class="label link-arrow">Milestones.</span></a>
+  </section>
+
+  <!-- Model range: one car -->
+  <section class="section">
+    <h2 class="display range-title">Your journey starts now.</h2>
+    <div class="model-card">
+      <div class="model-copy">
+        <span class="model-name">{site.car}</span>
+        <span class="muted">Two-seat roadster</span>
+        <div class="tags"><span class="tag">Hand-built</span><span class="tag">Fibreglass body</span><span class="tag">Steel chassis</span></div>
+        <span class="links"><a class="link-arrow" href="/segar-cobra/">Explore</a><a class="link-arrow" href="/segar-cobra/configure/">Configure</a></span>
+      </div>
+      <a href="/segar-cobra/" tabindex="-1" aria-hidden="true"><img src="/img/palms-bw.jpg" alt="" loading="lazy" /></a>
+    </div>
+  </section>
+
+  <!-- Discover -->
+  <section class="section">
+    <h2 class="heading">Discover</h2>
+    <div class="discover">
+      <a class="photo-tile" href="/segar-cobra/#cockpit"><img src="/img/cockpit-800.jpg" alt="" loading="lazy" /><span class="label">The cockpit.</span></a>
+      <a class="photo-tile" href="/about/"><img src="/img/trees-800.jpg" alt="" loading="lazy" /><span class="label">The story — eleven years in the making</span></a>
+      <a class="photo-tile" href="/gallery/"><img src="/img/beach-bw-800.jpg" alt="" loading="lazy" /><span class="label">Gallery.</span></a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .stage { position: relative; min-height: 100svh; color: #fff; overflow: hidden; display: flex; flex-direction: column; justify-content: center; padding: 120px var(--gutter) 96px; }
+  .stage picture, .stage img, .shade { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .stage img { object-fit: cover; object-position: 50% 60%; }
+  .shade { background: linear-gradient(90deg, rgba(0,0,0,.55), rgba(0,0,0,0) 55%), linear-gradient(180deg, rgba(0,0,0,.5) 0%, rgba(0,0,0,.05) 40%, rgba(0,0,0,.6) 100%); }
+  .links { display: flex; gap: 20px; }
+  .copy { position: relative; display: grid; gap: 24px; justify-items: start; max-width: 760px; }
+  .copy .eyebrow { margin: 0; }
+  .scroll { position: absolute; left: 50%; bottom: 40px; transform: translateX(-50%); text-decoration: none; font-size: 1.5rem; animation: bob 2.4s ease-in-out infinite; }
+  @keyframes bob { 50% { transform: translate(-50%, 6px); } }
+
+  .tiles { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); }
+  .tiles .photo-tile { aspect-ratio: 4 / 5; }
+
+  .range-title { max-width: 14ch; margin-bottom: 40px; }
+  .model-card { display: grid; gap: 24px; align-items: center; padding: 28px; border-radius: var(--radius-m); background: var(--surface); text-decoration: none; overflow: hidden; }
+  
+  @media (min-width: 860px) { .model-card { grid-template-columns: 1fr 1.6fr; padding: 40px; } }
+  .model-copy { display: grid; gap: 12px; justify-items: start; }
+  .model-name { font-size: clamp(2rem, 4vw, 3rem); letter-spacing: 0.02em; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+  .model-card img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border-radius: var(--radius-m); }
+
+  .discover { display: grid; gap: 16px; grid-template-columns: 1fr; }
+  @media (min-width: 760px) { .discover { grid-template-columns: repeat(3, 1fr); } }
+  .discover .photo-tile { aspect-ratio: 16 / 9; }
+  @media (min-width: 760px) { .discover .photo-tile { aspect-ratio: 1; } }
+</style>

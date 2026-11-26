@@ -1,0 +1,97 @@
+/* Your own small design system: tokens + a few base components.
+   (The reference site uses Porsche Design System, whose licence limits it to
+   Porsche's own sites, so this project uses its own tokens instead.) */
+:root {
+  --font: 'Inter Tight', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --bg: #f4f4f2;
+  --surface: #ffffff;
+  --text: #0e0e12;
+  --text-muted: #5f6069;
+  --contrast: #0e0e12;
+  --on-contrast: #ffffff;
+  --border: #d8d8dc;
+  --accent: #c8a45c;
+  --radius-s: 6px;
+  --radius-m: 12px;
+  --radius-l: 20px;
+  --gutter: clamp(16px, 5vw, 96px);
+  --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0e0e12;
+    --surface: #1a1b1e;
+    --text: #fbfcff;
+    --text-muted: #a3a4ab;
+    --contrast: #fbfcff;
+    --on-contrast: #0e0e12;
+    --border: #3a3b40;
+    color-scheme: dark;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+img, video { display: block; max-width: 100%; }
+a { color: inherit; }
+
+.display { font-size: clamp(2.25rem, 5.5vw, 4.5rem); font-weight: 400; line-height: 1.05; letter-spacing: -0.02em; margin: 0; }
+.heading { font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 600; margin: 0 0 1.5rem; }
+.muted { color: var(--text-muted); }
+.section { padding: clamp(48px, 8vw, 112px) var(--gutter); }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 54px; padding: 0 28px; border-radius: var(--radius-s);
+  font: inherit; font-size: 1rem; text-decoration: none; cursor: pointer;
+  border: 1px solid transparent; transition: background 0.25s var(--ease), color 0.25s var(--ease);
+}
+.btn-primary { background: var(--contrast); color: var(--on-contrast); }
+.btn-glass {
+  background: rgba(255, 255, 255, 0.14); color: #fff;
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+.btn-glass:hover { background: rgba(255, 255, 255, 0.26); }
+
+.tag {
+  display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.8125rem;
+  background: color-mix(in srgb, var(--text) 8%, transparent);
+}
+
+.link-arrow { display: inline-flex; align-items: center; gap: 6px; text-decoration: none; font-weight: 500; }
+.link-arrow::after { content: '→'; transition: transform 0.25s var(--ease); }
+.link-arrow:hover::after { transform: translateX(4px); }
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; animation: none !important; }
+}
+
+/* --- Segar additions --- */
+:root { --radius: var(--radius-m); }
+.eyebrow { margin: 0 0 12px; font-size: 0.875rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); }
+.on-dark .eyebrow, .eyebrow.light { color: rgba(255, 255, 255, 0.8); }
+.lead { font-size: clamp(1.05rem, 1.5vw, 1.25rem); line-height: 1.6; color: var(--text-muted); max-width: 62ch; }
+.link-tile {
+  position: relative; display: flex; align-items: flex-end; min-height: 160px; padding: 24px; border-radius: var(--radius-l);
+  background: var(--surface); text-decoration: none; font-size: 1.25rem; overflow: hidden;
+}
+.link-tile span::after { content: ' →'; }
+.link-tile:hover { background: color-mix(in srgb, var(--text) 6%, var(--surface)); }
+.photo-tile { position: relative; display: block; border-radius: var(--radius-l); overflow: hidden; color: #fff; text-decoration: none; background: #111; }
+.photo-tile img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s var(--ease); }
+.photo-tile:hover img { transform: scale(1.04); }
+.photo-tile::after { content: ''; position: absolute; inset: 0; background: linear-gradient(transparent 50%, rgba(0,0,0,.65)); }
+.photo-tile .label { position: absolute; left: 24px; right: 24px; bottom: 24px; z-index: 1; font-size: 1.25rem; }

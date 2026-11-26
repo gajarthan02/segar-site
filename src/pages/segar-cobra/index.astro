@@ -1,0 +1,165 @@
+---
+// Model page, laid out like a car-maker's model page: intro, key figures, sticky
+// in-page navigation, editorial mosaic, cockpit, technical data, cross-links.
+// Technical data lists only facts that have been published.
+import Base from '../../layouts/Base.astro';
+import site from '../../../content/site.json';
+
+const tech: [string, string][] = [
+  ['Body style', 'Two-seat open roadster'],
+  ['Body', 'Fibreglass, made in Sri Lanka'],
+  ['Chassis', 'Steel, made in Sri Lanka'],
+  ['Roll bar', 'Chrome, made in Sri Lanka'],
+  ['Differential', 'Limited-slip (LSD)'],
+  ['Exhaust', 'Chrome side exhausts'],
+  ['Instruments', '7 analogue gauges'],
+  ['Connectivity', 'Bluetooth'],
+  ['Local value addition', '80%'],
+  ['Technical evaluation', 'NERDC, 2023'],
+  ['Registration', 'Eligible under Department of Motor Traffic requirements'],
+];
+if (site.price) tech.push(['Price', site.price]);
+
+const mosaic = [
+  { img: '/img/wheel-exhaust-800.jpg', ...site.features[1] },
+  { img: '/img/workshop-800.jpg', ...site.features[2] },
+  { img: '/img/brick-wall-800.jpg', ...site.features[0] },
+  { img: '/img/galle-fort-800.jpg', ...site.features[3] },
+];
+---
+<Base title={site.car} description={site.intro} overlayHeader>
+  <section class="intro">
+    <img class="intro-bg" src="/img/hero-wide.jpg" alt="" />
+    <div class="intro-copy">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / Models</nav>
+      <h1 class="display">{site.car}</h1>
+      <p class="sub">{site.tagline}</p>
+      <div class="ctas">
+        <a class="btn btn-glass" href="/segar-cobra/configure/">Configure</a>
+        <a class="btn btn-glass" href="/contact/">Enquire</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section highlights" aria-label="Key facts">
+    {site.stats.slice(0, 3).map((s) => <div><strong>{s.value}</strong><span class="muted">{s.label}</span></div>)}
+  </section>
+
+  <nav class="page-nav" aria-label="On this page">
+    <a href="#overview">Overview</a><a href="#design">Design</a><a href="#cockpit">Cockpit</a><a href="#made-here">Made in Sri Lanka</a><a href="#technical-data">Technical data</a><a href="/segar-cobra/configure/">Configure →</a>
+  </nav>
+
+  <section class="section split" id="overview">
+    <div>
+      <h2 class="heading">A 1960s roadster, built today.</h2>
+      {site.story.map((p) => <p class="lead">{p}</p>)}
+    </div>
+    <img src="/img/trees.jpg" alt="The Segar Cobra under tropical trees" loading="lazy" />
+  </section>
+
+  <section class="section" id="design">
+    <h2 class="heading">Design.</h2>
+    <div class="mosaic">
+      {mosaic.map((m) => (
+        <article class="m-tile">
+          <img src={m.img} alt="" loading="lazy" />
+          <div><h3>{m.title}</h3><p>{m.text}</p></div>
+        </article>
+      ))}
+    </div>
+    <div class="wide-photo"><img src="/img/beach-cafe.jpg" alt="Side profile of the Segar Cobra by a beach café" loading="lazy" /></div>
+  </section>
+
+  <section class="section split dark" id="cockpit">
+    <img src="/img/cockpit.jpg" alt="Cockpit with wood-rim steering wheel and analogue gauges" loading="lazy" />
+    <div>
+      <span class="eyebrow light">Cockpit</span>
+      <h2 class="heading">Seven gauges. Real switches.</h2>
+      <p>{site.features[5].text}</p>
+      <div class="lists">
+        <div><h3>Gauges</h3><ol>{site.gauges.map((g) => <li>{g}</li>)}</ol></div>
+        <div><h3>Switches</h3><ul>{site.switches.map((g) => <li>{g}</li>)}</ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section split" id="made-here">
+    <div>
+      <span class="eyebrow">80% local value addition</span>
+      <h2 class="heading">Made in Sri Lanka.</h2>
+      <p class="lead">The main parts are made in Sri Lanka from locally sourced raw materials.</p>
+      <ul class="chips">{site.madeHere.map((m) => <li class="tag">{m}</li>)}</ul>
+      <a class="link-arrow" href="/about/">The full story</a>
+    </div>
+    <img src="/img/shelter.jpg" alt="The Segar Cobra under a shelter on open land" loading="lazy" />
+  </section>
+
+  <section class="section" id="technical-data">
+    <h2 class="heading">Technical data</h2>
+    <dl class="tech">{tech.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}</dl>
+    <p class="muted note">Engine, power and performance figures have not been published yet. <a href="/contact/">Ask us</a>.</p>
+  </section>
+
+  <section class="section cross">
+    <a class="photo-tile" href="/segar-cobra/configure/"><img src="/img/brick-wall-800.jpg" alt="" loading="lazy" /><span class="label link-arrow">Configure yours</span></a>
+    <a class="photo-tile" href="/gallery/"><img src="/img/beach-bw-800.jpg" alt="" loading="lazy" /><span class="label link-arrow">Gallery</span></a>
+    <a class="photo-tile" href="/about/#milestones"><img src="/img/galle-fort-800.jpg" alt="" loading="lazy" /><span class="label link-arrow">Milestones</span></a>
+    <a class="photo-tile" href="/contact/"><img src="/img/palms-bw-800.jpg" alt="" loading="lazy" /><span class="label link-arrow">Enquire</span></a>
+  </section>
+</Base>
+
+<style>
+  .intro { position: relative; min-height: 92svh; display: flex; align-items: flex-end; color: #fff; overflow: hidden; padding: 120px var(--gutter) 64px; }
+  .intro-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; }
+  .intro::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0,0,0,.6), rgba(0,0,0,0) 55%), linear-gradient(180deg, rgba(0,0,0,.5), rgba(0,0,0,0) 40%, rgba(0,0,0,.7)); }
+  .intro-copy { position: relative; z-index: 1; display: grid; gap: 14px; justify-items: start; }
+  .crumbs { font-size: 0.875rem; opacity: 0.85; }
+  .crumbs a { text-decoration: none; }
+  .sub { margin: 0; font-size: 1.25rem; opacity: 0.9; }
+  .ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+
+  .highlights { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); }
+  .highlights div { display: grid; gap: 4px; }
+  .highlights strong { font-size: clamp(2.25rem, 4vw, 3.25rem); font-weight: 400; }
+
+  .page-nav {
+    position: sticky; top: 0; z-index: 5; display: flex; gap: 28px; overflow-x: auto; padding: 14px var(--gutter);
+    background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-block: 1px solid var(--border);
+  }
+  .page-nav a { flex: none; text-decoration: none; color: var(--text-muted); }
+  .page-nav a:hover { color: var(--text); }
+
+  .split { display: grid; gap: 48px; align-items: center; }
+  @media (min-width: 900px) { .split { grid-template-columns: 1fr 1fr; } }
+  .split > img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius-l); }
+  #overview > img { aspect-ratio: 3 / 4; max-height: 720px; }
+  .dark { background: #0e0e12; color: #fbfcff; }
+  .dark p { color: #c9cad0; line-height: 1.6; }
+
+  .mosaic { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); }
+  .m-tile { position: relative; border-radius: var(--radius-l); overflow: hidden; aspect-ratio: 3 / 4; color: #fff; }
+  .m-tile img { width: 100%; height: 100%; object-fit: cover; }
+  .m-tile::after { content: ''; position: absolute; inset: 0; background: linear-gradient(transparent 45%, rgba(0,0,0,.75)); }
+  .m-tile div { position: absolute; z-index: 1; left: 24px; right: 24px; bottom: 22px; }
+  .m-tile h3 { margin: 0 0 6px; font-size: 1.25rem; font-weight: 500; }
+  .m-tile p { margin: 0; font-size: 0.9375rem; opacity: 0.88; }
+  .wide-photo { margin-top: 16px; border-radius: var(--radius-l); overflow: hidden; }
+  .wide-photo img { width: 100%; aspect-ratio: 21 / 9; object-fit: cover; object-position: 50% 70%; }
+
+  .lists { display: grid; gap: 32px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); margin-top: 24px; }
+  .lists h3 { font-size: 0.875rem; letter-spacing: 0.08em; text-transform: uppercase; color: #a3a4ab; margin: 0 0 10px; font-weight: 500; }
+  .lists ol, .lists ul { margin: 0; padding-left: 20px; display: grid; gap: 6px; }
+
+  .chips { list-style: none; padding: 0; margin: 20px 0 24px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .chips .tag { padding: 6px 12px; font-size: 0.9375rem; }
+
+  .tech { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 0 40px; margin: 0; }
+  .tech div { display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--border); }
+  .tech dt { color: var(--text-muted); }
+  .tech dd { margin: 0; text-align: right; font-weight: 500; }
+  .note { margin-top: 20px; }
+
+  .cross { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); padding-top: 0; }
+  .cross .photo-tile { aspect-ratio: 16 / 10; }
+</style>

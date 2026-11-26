@@ -1,0 +1,21 @@
+---
+import Base from '../../layouts/Base.astro';
+import Configurator from '../../components/Configurator.vue';
+import site from '../../../content/site.json';
+
+const handle = site.instagram.replace(/\/$/, '').split('/').pop();
+const c = site.configurator;
+---
+<Base title={`Configure your ${site.car}`} description={`Choose colours, stripes, wheels and options for your ${site.car}.`}>
+  <section class="section">
+    <nav class="crumbs muted" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/segar-cobra/">{site.car}</a> / Configure</nav>
+    <h1 class="heading">Configure your {site.car}</h1>
+    <Configurator client:load car={site.car} instagramDm={`https://ig.me/m/${handle}`} note={c.note} photoNote={c.photoNote}
+      paints={c.paints} stripes={c.stripes} wheels={c.wheels} interiors={c.interiors} options={c.options} />
+  </section>
+</Base>
+
+<style>
+  .crumbs { font-size: 0.875rem; margin-bottom: 12px; }
+  .crumbs a { text-decoration: none; }
+</style>

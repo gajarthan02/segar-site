@@ -1,0 +1,39 @@
+---
+import Base from '../layouts/Base.astro';
+import site from '../../content/site.json';
+
+// Only contact options that have data are shown (fill them in content/site.json).
+const contacts = [
+  site.whatsapp && { label: 'WhatsApp', value: site.whatsapp, href: `https://wa.me/${site.whatsapp.replace(/[^\d]/g, '')}` },
+  site.phone && { label: 'Phone', value: site.phone, href: `tel:${site.phone.replace(/[^+\d]/g, '')}` },
+  site.email && { label: 'Email', value: site.email, href: `mailto:${site.email}` },
+  site.address && { label: 'Visit us', value: site.address, href: `https://maps.google.com/?q=${encodeURIComponent(site.address)}` },
+  { label: 'Instagram', value: site.instagramHandle, href: site.instagram },
+].filter(Boolean) as { label: string; value: string; href: string }[];
+---
+<Base title="Contact" description={`Enquire about the ${site.car}.`}>
+  <section class="section contact">
+    <div>
+      <span class="eyebrow">Contact</span>
+      <h1 class="display">Interested in a {site.car}?</h1>
+      <p class="lead">Send us a message and we'll get back to you.</p>
+      <ul>
+        {contacts.map((c) => (
+          <li><a class="link-tile" href={c.href} target={c.href.startsWith('http') ? '_blank' : undefined} rel="noopener">
+            <small class="muted">{c.label}</small><span>{c.value}</span>
+          </a></li>
+        ))}
+      </ul>
+    </div>
+    <img src="/img/beach-cafe.jpg" alt="The Segar Cobra parked by a beach café" />
+  </section>
+</Base>
+
+<style>
+  .contact { display: grid; gap: 48px; align-items: center; }
+  @media (min-width: 900px) { .contact { grid-template-columns: 1fr 1fr; } }
+  .contact img { width: 100%; aspect-ratio: 3 / 4; max-height: 760px; object-fit: cover; border-radius: var(--radius-l); }
+  ul { list-style: none; padding: 0; margin: 32px 0 0; display: grid; gap: 12px; max-width: 440px; }
+  .link-tile { min-height: 110px; flex-direction: column; align-items: flex-start; justify-content: flex-end; gap: 4px; }
+  .link-tile small { font-size: 0.875rem; }
+</style>

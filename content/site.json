@@ -1,0 +1,321 @@
+{
+  "_note": "Only facts found in public sources (Nov 2026). Add engine, power, price and contact details here when you have them; empty fields are hidden on the site.",
+  "brand": "Segar Motorsports",
+  "car": "Segar Cobra",
+  "tagline": "Hand-built in Sri Lanka.",
+  "intro": "A 1960s-style 427 roadster, designed and built in Sri Lanka by Donnavann Dax Rajasegar. Eleven years in the making, with 80% local value addition.",
+  "instagram": "https://www.instagram.com/segarmotorsports/",
+  "instagramHandle": "@segarmotorsports",
+  "phone": "",
+  "whatsapp": "",
+  "email": "",
+  "address": "",
+  "price": "",
+  "stats": [
+    {
+      "value": "80%",
+      "label": "Made in Sri Lanka"
+    },
+    {
+      "value": "11",
+      "label": "Years to build the first car"
+    },
+    {
+      "value": "2023",
+      "label": "Technical evaluation by NERDC"
+    },
+    {
+      "value": "2024",
+      "label": "Presented to the President of Sri Lanka"
+    }
+  ],
+  "story": [
+    "Segar Motorsports builds brand-new sports cars inspired by the world's most timeless designs. The first is the Segar Cobra: a two-seat roadster in the spirit of the 1960s 427 race cars.",
+    "Its creator, Donnavann Dax Rajasegar, spent eleven years building it in Sri Lanka. The steel chassis and the fibreglass body were made here, together with the roll bar, dashboard, centre console and brackets, using raw materials sourced within the country. The car is built in collaboration with RV Dynamics."
+  ],
+  "madeHere": [
+    "Steel chassis",
+    "Fibreglass body",
+    "Roll bar",
+    "Dashboard",
+    "Centre console",
+    "Mounting brackets"
+  ],
+  "features": [
+    {
+      "title": "Twin racing stripes",
+      "text": "Gloss black with silver stripes over the bonnet, cockpit and boot."
+    },
+    {
+      "title": "Side exhausts",
+      "text": "Chrome side pipes running beneath the doors."
+    },
+    {
+      "title": "Roll bar",
+      "text": "Chrome roll bar behind the cockpit, made in Sri Lanka."
+    },
+    {
+      "title": "Segar wheels",
+      "text": "Spoked wheels with Segar centre caps."
+    },
+    {
+      "title": "Limited-slip differential",
+      "text": "An LSD sends power to both rear wheels for grip out of corners."
+    },
+    {
+      "title": "Classic cockpit",
+      "text": "Wood-rim steering wheel, seven analogue gauges and toggle switches, with Bluetooth."
+    }
+  ],
+  "gauges": [
+    "Speedometer with odometer",
+    "Tachometer (RPM)",
+    "Fuel gauge",
+    "Clock",
+    "Voltmeter (battery)",
+    "Oil pressure",
+    "Temperature gauge"
+  ],
+  "switches": [
+    "Odometer reset",
+    "Bluetooth",
+    "Hazard lights",
+    "Parking / headlamps"
+  ],
+  "milestones": [
+    {
+      "date": "2023",
+      "title": "Technical evaluation",
+      "text": "The Technology Incubator of the National Engineering Research and Development Centre (NERDC) evaluated the car's structure, performance, stability and safety features. Its report found that the car meets or exceeds the technical and safety requirements of the Department of Motor Traffic, making it eligible for registration."
+    },
+    {
+      "date": "31 May 2024",
+      "title": "Presented to the President",
+      "text": "The car was presented to President Ranil Wickremesinghe at the Presidential Secretariat in Colombo."
+    },
+    {
+      "date": "18 June 2024",
+      "title": "Ministry of Industries",
+      "text": "Scheduled for exhibition at the Ministry of Industries as a car designed and manufactured in Sri Lanka."
+    },
+    {
+      "date": "Today",
+      "title": "On the road",
+      "text": "The Segar Cobra is registered and driven on Sri Lankan roads, from Galle Fort to the coast."
+    }
+  ],
+  "gallery": [
+    {
+      "src": "/img/galle-fort.jpg",
+      "thumb": "/img/galle-fort-800.jpg",
+      "w": 1350,
+      "h": 1800,
+      "alt": "Segar Cobra parked outside a colonial building in Galle Fort"
+    },
+    {
+      "src": "/img/palms-bw.jpg",
+      "thumb": "/img/palms-bw-800.jpg",
+      "w": 1350,
+      "h": 1800,
+      "alt": "Front three-quarter view in black and white, with palm trees"
+    },
+    {
+      "src": "/img/beach-cafe.jpg",
+      "thumb": "/img/beach-cafe-800.jpg",
+      "w": 1350,
+      "h": 1800,
+      "alt": "Side view of the car by a beach café"
+    },
+    {
+      "src": "/img/wheel-exhaust.jpg",
+      "thumb": "/img/wheel-exhaust-800.jpg",
+      "w": 1350,
+      "h": 1800,
+      "alt": "Close-up of the chrome side exhaust and a Segar wheel"
+    },
+    {
+      "src": "/img/trees.jpg",
+      "thumb": "/img/trees-800.jpg",
+      "w": 1200,
+      "h": 1600,
+      "alt": "The car under tropical trees"
+    },
+    {
+      "src": "/img/brick-wall.jpg",
+      "thumb": "/img/brick-wall-800.jpg",
+      "w": 1440,
+      "h": 1440,
+      "alt": "Rear three-quarter view beside a brick wall"
+    },
+    {
+      "src": "/img/workshop.jpg",
+      "thumb": "/img/workshop-800.jpg",
+      "w": 1440,
+      "h": 1440,
+      "alt": "Rear of the car with roll bar and stripes in the workshop"
+    },
+    {
+      "src": "/img/cockpit.jpg",
+      "thumb": "/img/cockpit-800.jpg",
+      "w": 1200,
+      "h": 900,
+      "alt": "Cockpit with wood-rim steering wheel and gauges"
+    },
+    {
+      "src": "/img/beach-bw.jpg",
+      "thumb": "/img/beach-bw-800.jpg",
+      "w": 1200,
+      "h": 1200,
+      "alt": "Black and white photo of the car on a beach"
+    },
+    {
+      "src": "/img/shelter.jpg",
+      "thumb": "/img/shelter-800.jpg",
+      "w": 1800,
+      "h": 1350,
+      "alt": "The car under a shelter on open land"
+    }
+  ],
+  "guides": [
+    {
+      "src": "/img/gauges-guide.jpg",
+      "thumb": "/img/gauges-guide-800.jpg",
+      "w": 1350,
+      "h": 1800,
+      "alt": "Owner's guide page: gauges and switches"
+    },
+    {
+      "src": "/img/lights-guide.jpg",
+      "thumb": "/img/lights-guide-800.jpg",
+      "w": 1350,
+      "h": 1800,
+      "alt": "Owner's guide page: indicators and warning lights"
+    },
+    {
+      "src": "/img/nerdc-report.jpg",
+      "thumb": "/img/nerdc-report-800.jpg",
+      "w": 1242,
+      "h": 1656,
+      "alt": "Cover of the 2023 NERDC technical evaluation report"
+    }
+  ],
+  "configurator": {
+    "note": "Configuration preview. Colours, options and availability to be confirmed with Segar Motorsports.",
+    "paints": [
+      {
+        "id": "black",
+        "name": "Jet Black",
+        "hex": "#111214",
+        "original": true,
+        "photo": "/img/paint-black.jpg"
+      },
+      {
+        "id": "blue",
+        "name": "Ocean Blue",
+        "hex": "#1f3f78",
+        "photo": "/img/paint-blue.jpg"
+      },
+      {
+        "id": "green",
+        "name": "Racing Green",
+        "hex": "#1e3d2f",
+        "photo": "/img/paint-green.jpg"
+      },
+      {
+        "id": "red",
+        "name": "Signal Red",
+        "hex": "#a3161a",
+        "photo": "/img/paint-red.jpg"
+      },
+      {
+        "id": "white",
+        "name": "Pearl White",
+        "hex": "#ecebe6",
+        "photo": "/img/paint-white.jpg"
+      },
+      {
+        "id": "silver",
+        "name": "Silver",
+        "hex": "#a9adb3",
+        "photo": "/img/paint-silver.jpg"
+      }
+    ],
+    "stripes": [
+      {
+        "id": "silver",
+        "name": "Silver twin stripes",
+        "hex": "#c9ccd1",
+        "original": true
+      },
+      {
+        "id": "white",
+        "name": "White twin stripes",
+        "hex": "#f4f4f2"
+      },
+      {
+        "id": "black",
+        "name": "Black twin stripes",
+        "hex": "#151517"
+      },
+      {
+        "id": "red",
+        "name": "Red twin stripes",
+        "hex": "#b3261e"
+      },
+      {
+        "id": "none",
+        "name": "No stripes",
+        "hex": ""
+      }
+    ],
+    "wheels": [
+      {
+        "id": "silver",
+        "name": "Silver spoked wheels",
+        "hex": "#c8ccd2",
+        "original": true
+      },
+      {
+        "id": "black",
+        "name": "Black spoked wheels",
+        "hex": "#2a2b2e"
+      },
+      {
+        "id": "gold",
+        "name": "Gold spoked wheels",
+        "hex": "#b89a5a"
+      }
+    ],
+    "interiors": [
+      {
+        "id": "black",
+        "name": "Black leather",
+        "hex": "#141518",
+        "original": true
+      },
+      {
+        "id": "tan",
+        "name": "Tan leather",
+        "hex": "#a06a3c"
+      },
+      {
+        "id": "red",
+        "name": "Red leather",
+        "hex": "#7d1c1c"
+      }
+    ],
+    "options": [
+      {
+        "id": "rollbar",
+        "name": "Chrome roll bar",
+        "default": true
+      },
+      {
+        "id": "sidepipes",
+        "name": "Chrome side exhausts",
+        "default": true
+      }
+    ],
+    "photoNote": "Colour photos are AI-edited previews of the Segar Cobra; the real paint may differ. Stripes, wheels, interior and options are shown in the Side and Top views."
+  }
+}
