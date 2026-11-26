@@ -45,5 +45,4 @@ are labelled on the page as previews. To add a colour: add it to `configurator.p
 Replace them with real photos of painted cars when Segar has them.
 
 ## Publish
-Hosted on GitHub Pages (repo `gajarthan02/segar-site`, branch `gh-pages`, domain `segar.bohar.online`
-via `public/CNAME`). After changes: `npm run deploy` (builds and pushes `dist/` to `gh-pages`).
+Run `npm run build` and upload the contents of `dist/` to any web host (static files, no PHP or database needed).
