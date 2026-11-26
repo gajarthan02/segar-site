@@ -3,6 +3,7 @@
 // in-page navigation, editorial mosaic, cockpit, technical data, cross-links.
 // Technical data lists only facts that have been published.
 import Base from '../../layouts/Base.astro';
+import Car3D from '../../components/Car3D.astro';
 import site from '../../../content/site.json';
 
 const tech: [string, string][] = [
@@ -46,8 +47,14 @@ const mosaic = [
   </section>
 
   <nav class="page-nav" aria-label="On this page">
-    <a href="#overview">Overview</a><a href="#design">Design</a><a href="#cockpit">Cockpit</a><a href="#made-here">Made in Sri Lanka</a><a href="#technical-data">Technical data</a><a href="/segar-cobra/configure/">Configure →</a>
+    <a href="#view-3d">3D view</a><a href="#overview">Overview</a><a href="#design">Design</a><a href="#cockpit">Cockpit</a><a href="#made-here">Made in Sri Lanka</a><a href="#technical-data">Technical data</a><a href="/segar-cobra/configure/">Configure →</a>
   </nav>
+
+  <section class="section" id="view-3d">
+    <span class="eyebrow">360° · 3D</span>
+    <h2 class="heading">Walk around it.</h2>
+    <Car3D />
+  </section>
 
   <section class="section split" id="overview">
     <div>

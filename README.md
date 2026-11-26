@@ -53,3 +53,10 @@ the plain photo), `wheel-<silver|black|gold>.jpg` (silver is the real photo), `i
 All except `wheel-silver` are AI-edited (ChatGPT, 26 Nov 2026) from Segar's own photos; originals in
 `~/Downloads/segar-motorsports/ai-renders/`. The Photo view follows the active tab (Exterior/Options/Summary
 show the car, Wheels shows the wheel, Interior shows the cockpit).
+
+## 3D view
+`public/3d/segar-cobra.glb` (1.8 MB, ~23k triangles) was generated from one photo with Microsoft TRELLIS
+(Hugging Face demo, 26 Nov 2026; source image `3d-source/segar-3q-black.jpg`). Shown with Google
+`<model-viewer>` 4.3.1 (CDN) on `/segar-cobra/#view-3d` and as the "3D" view in the configurator, with
+drag/zoom, auto-rotate and phone AR. The unseen side and rear are AI guesses; replace with a proper
+model (artist or scan) when available. It shows the original Jet Black only.

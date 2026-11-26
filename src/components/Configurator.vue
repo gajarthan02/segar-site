@@ -18,7 +18,7 @@ const cfg = reactive({
   opts: props.options.filter((o) => o.default).map((o) => o.id),
 });
 const step = ref<'exterior' | 'wheels' | 'interior' | 'options' | 'summary'>('exterior');
-const view = ref<'photo' | 'side' | 'top'>('photo');
+const view = ref<'photo' | '3d' | 'side' | 'top'>('photo');
 const copied = ref('');
 
 onMounted(() => {
@@ -97,12 +97,19 @@ const steps = ['exterior', 'wheels', 'interior', 'options', 'summary'] as const;
     <div class="stage">
       <div class="views" role="group" aria-label="View">
         <button v-if="photos.length" type="button" :aria-pressed="view === 'photo'" @click="view = 'photo'">Photo</button>
+        <button type="button" :aria-pressed="view === '3d'" @click="view = '3d'">3D</button>
         <button type="button" :aria-pressed="view === 'side'" @click="view = 'side'">Side</button>
         <button type="button" :aria-pressed="view === 'top'" @click="view = 'top'">Top</button>
       </div>
       <div v-if="view === 'photo' && currentPhoto" class="photo" :class="photoKind">
         <img v-for="src in shown" :key="src" :src="src" :alt="src === currentPhoto ? photoAlt : ''"
           :class="{ on: src === currentPhoto }" :aria-hidden="src !== currentPhoto" decoding="async" />
+      </div>
+      <div v-else-if="view === '3d'" class="model">
+        <model-viewer src="/3d/segar-cobra.glb" alt="3D model of the Segar Cobra" camera-controls auto-rotate
+          rotation-per-second="20deg" shadow-intensity="1" exposure="1.1" environment-image="neutral"
+          camera-orbit="240deg 75deg 85%" ar ar-modes="webxr scene-viewer quick-look" />
+        <p class="caption small-note">3D preview shows the original Jet Black car (AI-generated from a photo). Your colour choices appear in the Photo view.</p>
       </div>
       <div v-else class="art" v-html="art" />
       <p class="caption">{{ paint.name }} · {{ stripe.name }} · {{ wheel.name }}</p>
@@ -198,6 +205,7 @@ const steps = ['exterior', 'wheels', 'interior', 'options', 'summary'] as const;
 .photo { position: relative; aspect-ratio: 4 / 3; width: 100%; margin: 0 auto; border-radius: var(--radius-m); overflow: hidden; background: #ddd; }
 .photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 88%; opacity: 0; transition: opacity 0.45s ease; }
 .photo img.on { opacity: 1; }
+.model model-viewer { width: 100%; height: min(60vh, 520px); --poster-color: transparent; }
 .photo.wheel img { object-position: 50% 75%; }
 .photo.interior img { object-position: 50% 50%; }
 .small-note { font-size: 0.75rem; max-width: 60ch; margin: 6px auto 0; }

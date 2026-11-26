@@ -1,0 +1,45 @@
+---
+// Interactive 3D model of the Segar Cobra (AI-generated from a photo with TRELLIS).
+// Drag to rotate, scroll/pinch to zoom, "View in your space" AR on supported phones.
+interface Props { height?: string }
+const { height = 'min(70vh, 620px)' } = Astro.props;
+---
+<script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer@4.3.1/dist/model-viewer.min.js"></script>
+
+<div class="car3d" style={`--h:${height}`}>
+  <model-viewer
+    src="/3d/segar-cobra.glb"
+    alt="3D model of the Segar Cobra"
+    camera-controls
+    auto-rotate
+    auto-rotate-delay="1500"
+    rotation-per-second="20deg"
+    interaction-prompt="auto"
+    shadow-intensity="1"
+    shadow-softness="0.8"
+    exposure="1.1"
+    environment-image="neutral"
+    camera-orbit="240deg 75deg 85%"
+    min-camera-orbit="auto 20deg auto"
+    max-camera-orbit="auto 88deg auto"
+    ar
+    ar-modes="webxr scene-viewer quick-look"
+    loading="lazy"
+  >
+    <button slot="ar-button" class="ar-btn" type="button">View in your space</button>
+    <div slot="progress-bar" class="progress"></div>
+  </model-viewer>
+  <p class="hint">Drag to rotate · Scroll or pinch to zoom · AI-generated 3D preview from a photo of the car</p>
+</div>
+
+<style>
+  .car3d { position: relative; border-radius: var(--radius-l); overflow: hidden; background: radial-gradient(100% 90% at 50% 30%, #ffffff, #e9e9ec); }
+  @media (prefers-color-scheme: dark) { .car3d { background: radial-gradient(100% 90% at 50% 30%, #2a2b30, #111214); } }
+  model-viewer { width: 100%; height: var(--h); --poster-color: transparent; }
+  .ar-btn {
+    position: absolute; right: 16px; bottom: 16px; padding: 10px 16px; border-radius: 999px; border: 0; cursor: pointer;
+    font: inherit; font-size: 0.875rem; background: var(--contrast); color: var(--on-contrast);
+  }
+  .progress { display: none; }
+  .hint { margin: 0; padding: 10px 16px 14px; text-align: center; font-size: 0.8125rem; color: var(--text-muted); }
+</style>

@@ -7,6 +7,7 @@ const handle = site.instagram.replace(/\/$/, '').split('/').pop();
 const c = site.configurator;
 ---
 <Base title={`Configure your ${site.car}`} description={`Choose colours, stripes, wheels and options for your ${site.car}.`}>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer@4.3.1/dist/model-viewer.min.js"></script>
   <section class="section">
     <nav class="crumbs muted" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/segar-cobra/">{site.car}</a> / Configure</nav>
     <h1 class="heading">Configure your {site.car}</h1>
